@@ -1,0 +1,119 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="NDUvBV8nPCIdfxlDGwgoIy0OTysoIVsnkmMfkFEJl2avbjDtdV8oBw7k" name="csrf-token">
+<title>Sign in | SolarAssistant</title>
+    <meta name="ga-id" content="G-LTLSFQPNLX">
+    <meta name="description">
+    <meta name="keywords">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+    <link rel="icon" sizes="48x48" href="/favicon.ico">
+    <link rel="mask-icon" href="https://d26qlef5ak4prm.cloudfront.net/images/favicon-maskable-d66a56b70731be004e030bf92406156c.svg?vsn=d" color="#29324a">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="google-site-verification" content="P6isUZu45_HPXkXTEZ3keY0GsT1pTXm1PSA3OnyXEMI">
+    <link phx-track-static="" rel="stylesheet" href="https://d26qlef5ak4prm.cloudfront.net/css/app-2c4591c6ef37beb6ce6a3d3f1a890bd0.css?vsn=d">
+    <script defer="" phx-track-static="" type="text/javascript" src="https://d26qlef5ak4prm.cloudfront.net/js/app-0c63e9c235b1ea2aa8188d837fae17d8.js?vsn=d"></script>
+
+      <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-LTLSFQPNLX"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-LTLSFQPNLX');
+      </script>   
+
+</head>
+<body class="desktop">
+<header class="header">
+    <div class="header-inner">
+        <div class="home">
+<a href="/"><img alt="SolarAssistant logo" class="logo" src="https://d26qlef5ak4prm.cloudfront.net/images/logo-d0cff12a60c1c7c99cc3daddcf90be4f.svg?vsn=d"></a>
+        </div>
+
+        <nav role="navigation" aria-label="Main" class="menu">
+
+
+<a class="menu-item button outline" href="/sites">Sites</a>
+<a class="menu-item button outline" href="/user">Account</a>
+
+<a class="menu-item button outline" href="/shop">Shop</a>
+<a class="menu-item button outline" href="/help/getting-started/prepare-device">Help</a>
+
+
+<a class="menu-item button" href="/sign_in">Sign in</a>
+<a class="menu-item button accent" href="/register">Register</a>
+
+        </nav>
+    </div>
+</header>
+<main id="main-root" role="main" class="main">
+<div class="">
+<div class="detach-header"></div>
+<div class="content">
+    <div class="heading">Sign in</div>
+<form action="/sign_in" method="post"><input name="_csrf_token" type="hidden" hidden="" value="NDUvBV8nPCIdfxlDGwgoIy0OTysoIVsnkmMfkFEJl2avbjDtdV8oBw7k">
+    <div class="card">
+        <div class="card-section">
+
+            <div class="form-field">
+<label for="user_email">Email</label>
+<input autocomplete="email" id="user_email" name="user[email]" required="" type="email">
+            </div>
+
+            <div class="form-field">
+<label for="user_password">Password</label>
+<input autocomplete="current-password" id="user_password" name="user[password]" required="" type="password">
+            </div>
+
+            <div class="form-field">
+<label for="user_remember_me">Keep me signed in</label>
+<input name="user[remember_me]" type="hidden" value="false"><input checked="" id="user_remember_me" name="user[remember_me]" type="checkbox" value="true">
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="buttons-right">
+<a class="button negative" href="/password/request_reset" id="forgot_password">Forgot password</a>
+<button class="forward" style="margin-left: 5px" type="submit">Sign in</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const link = document.getElementById("forgot_password");
+        const emailInput = document.getElementById("user_email");
+
+        if (link && emailInput) {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                const resetUrl = new URL(link.href);
+                resetUrl.searchParams.set("email", emailInput.value.trim());
+                window.location.href = resetUrl.toString();
+            });
+        }
+    });
+</script>
+</div>
+<div class="flash">
+    <div class="content">
+        <p class="alert alert-info" role="alert"></p>
+        <p class="alert alert-danger" role="alert">You must log in to access this page.</p>
+    </div>
+</div>
+</main>
+
+<script type="text/javascript">
+    if (window.matchMedia("only screen and (max-width: 46em)").matches) {
+        window.document.body.classList.add("mobile");
+    } else {
+        window.document.body.classList.add("desktop");
+    }
+</script>
+</body></html>

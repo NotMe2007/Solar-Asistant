@@ -95,39 +95,90 @@ class SolarAssistantBot:
             self.driver.get(url)
             
             # Wait for page to load
-            wait = WebDriverWait(self.driver, 20)
+            wait = WebDriverWait(self.driver, 30)  # Increased timeout
             
-            # Try to find login form elements
+            # Try to find login form elements with Solar Assistant specific selectors
             try:
-                # Look for common login field selectors
-                username_field = wait.until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, 
-                        "input[type='email'], input[name='username'], input[name='email'], input[id='username'], input[id='email']"))
-                )
-                password_field = self.driver.find_element(By.CSS_SELECTOR, 
-                    "input[type='password'], input[name='password'], input[id='password']")
+                # First, let's check if we're already logged in
+                current_url = self.driver.current_url.lower()
+                if "sign_in" not in current_url and "login" not in current_url:
+                    logger.info("Already appears to be logged in or on dashboard")
+                    return True
+                
+                # Wait for page to fully load
+                time.sleep(3)
+                
+                # Solar Assistant specific selectors
+                try:
+                    # Look for the specific email field used by Solar Assistant
+                    username_field = wait.until(
+                        EC.presence_of_element_located((By.NAME, "user[email]"))
+                    )
+                    logger.info("Found email field")
+                except TimeoutException:
+                    try:
+                        username_field = wait.until(
+                            EC.presence_of_element_located((By.ID, "user_email"))
+                        )
+                        logger.info("Found email field by ID")
+                    except TimeoutException:
+                        logger.error("Could not find email input field")
+                        self.driver.save_screenshot("debug_login_page.png")
+                        logger.info("Saved debug screenshot as debug_login_page.png")
+                        return False
+                
+                # Look for the specific password field used by Solar Assistant
+                try:
+                    password_field = self.driver.find_element(By.NAME, "user[password]")
+                    logger.info("Found password field")
+                except:
+                    try:
+                        password_field = self.driver.find_element(By.ID, "user_password")
+                        logger.info("Found password field by ID")
+                    except:
+                        logger.error("Could not find password input field")
+                        self.driver.save_screenshot("debug_login_page.png")
+                        logger.info("Saved debug screenshot as debug_login_page.png")
+                        return False
                 
                 # Clear and enter credentials
+                logger.info("Entering credentials...")
                 username_field.clear()
                 username_field.send_keys(username)
                 
                 password_field.clear()
                 password_field.send_keys(password)
                 
-                # Find and click login button
-                login_button = self.driver.find_element(By.CSS_SELECTOR, 
-                    "button[type='submit'], input[type='submit'], button:contains('Login'), button:contains('Sign in')")
-                login_button.click()
+                # Find and click the Solar Assistant submit button
+                try:
+                    login_button = self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
+                    logger.info("Found submit button")
+                    login_button.click()
+                    logger.info("Clicked submit button")
+                except:
+                    try:
+                        # Alternative: submit the form directly
+                        password_field.submit()
+                        logger.info("Submitted form directly")
+                    except:
+                        logger.error("Could not submit login form")
+                        return False
                 
                 # Wait for redirect or dashboard to load
-                time.sleep(5)
+                logger.info("Waiting for login to complete...")
+                time.sleep(8)
                 
-                # Check if login was successful (you might need to adjust this)
-                if "login" not in self.driver.current_url.lower():
-                    logger.info("Login successful")
+                # Check if login was successful - Solar Assistant redirects to the user's specific dashboard
+                current_url = self.driver.current_url.lower()
+                if "sign_in" not in current_url and "login" not in current_url:
+                    # Should be redirected to something like https://the-incredibles.za.solar-assistant.io/
+                    logger.info(f"Login successful - redirected to: {self.driver.current_url}")
                     return True
                 else:
                     logger.error("Login failed - still on login page")
+                    # Save debug screenshot
+                    self.driver.save_screenshot("debug_login_failed.png")
+                    logger.info("Saved debug screenshot as debug_login_failed.png")
                     return False
                     
             except TimeoutException:
