@@ -57,7 +57,7 @@ Edit `config.json` to customize the bot behavior:
 ```json
 {
   "solar_assistant": {
-    "url": "https://the-incredibles.za.solar-assistant.io/",
+    "url": "https://solar-assistant.io/",
     "username": "your_username_here",
     "password": "your_password_here"
   },

@@ -63,9 +63,9 @@ def setup_config():
     print("Please provide the following information:")
     
     # Get user inputs
-    solar_url = input("Solar Assistant URL [https://the-incredibles.za.solar-assistant.io/]: ").strip()
+    solar_url = input("Solar Assistant URL [https://solar-assistant.io/]: ").strip()
     if not solar_url:
-        solar_url = "https://the-incredibles.za.solar-assistant.io/"
+        solar_url = "https://solar-assistant.io/"
     
     username = input("Username: ").strip()
     password = input("Password: ").strip()
