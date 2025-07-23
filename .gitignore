@@ -12,6 +12,7 @@ venv.bak/
 
 # Configuration with sensitive data
 config.json
+system_status.json
 
 # Logs
 *.log
