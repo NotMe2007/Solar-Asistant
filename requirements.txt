@@ -1,7 +1,8 @@
-selenium==4.21.0
-requests==2.31.0
-Pillow==10.3.0
-schedule==1.2.0
-python-dotenv==1.0.1
-pytesseract==0.3.10
-opencv-python==4.9.0.80
+selenium>=4.21.0
+requests>=2.31.0
+Pillow>=10.3.0
+schedule>=1.2.0
+python-dotenv>=1.0.1
+pytesseract>=0.3.10
+opencv-python>=4.9.0.80
+pytest>=7.4.0
