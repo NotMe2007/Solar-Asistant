@@ -110,9 +110,6 @@ class TestStatusDetection:
 
     def test_should_send_alert_on_grid_offline(self, bot_with_config):
         """Test that alert is sent when grid goes offline."""
-
-    def test_should_send_alert_on_grid_offline(self, bot_with_config):
-        """Test that alert is sent when grid goes offline."""
         bot_with_config.last_system_status = "grid_online"
         
         result = bot_with_config.should_send_alert("grid_offline")
