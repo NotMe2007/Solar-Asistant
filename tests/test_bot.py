@@ -3,12 +3,10 @@ Tests for Solar Assistant Bot
 """
 
 import json
-import os
-import tempfile
-from datetime import datetime
-from unittest.mock import MagicMock, patch
 
 import pytest
+
+from solar_assistant_bot import SolarAssistantBot
 
 
 class TestConfigLoading:
@@ -48,9 +46,6 @@ class TestConfigLoading:
         with open(config_path, 'w') as f:
             json.dump(config_data, f)
         
-        # Import after creating config to avoid issues
-        from solar_assistant_bot import SolarAssistantBot
-        
         bot = SolarAssistantBot(config_path=str(config_path))
         
         assert bot.config['solar_assistant']['url'] == "https://example.com"
@@ -60,8 +55,6 @@ class TestConfigLoading:
 
     def test_load_missing_config_raises_error(self, tmp_path):
         """Test that missing config file raises FileNotFoundError."""
-        from solar_assistant_bot import SolarAssistantBot
-        
         with pytest.raises(FileNotFoundError):
             SolarAssistantBot(config_path=str(tmp_path / "nonexistent.json"))
 
@@ -70,8 +63,6 @@ class TestConfigLoading:
         config_path = tmp_path / "invalid.json"
         with open(config_path, 'w') as f:
             f.write("{ invalid json }")
-        
-        from solar_assistant_bot import SolarAssistantBot
         
         with pytest.raises(json.JSONDecodeError):
             SolarAssistantBot(config_path=str(config_path))
@@ -115,8 +106,10 @@ class TestStatusDetection:
         with open(config_path, 'w') as f:
             json.dump(config_data, f)
         
-        from solar_assistant_bot import SolarAssistantBot
         return SolarAssistantBot(config_path=str(config_path))
+
+    def test_should_send_alert_on_grid_offline(self, bot_with_config):
+        """Test that alert is sent when grid goes offline."""
 
     def test_should_send_alert_on_grid_offline(self, bot_with_config):
         """Test that alert is sent when grid goes offline."""
@@ -169,7 +162,6 @@ class TestSystemStatusPersistence:
         with open(config_path, 'w') as f:
             json.dump(config_data, f)
         
-        from solar_assistant_bot import SolarAssistantBot
         bot = SolarAssistantBot(config_path=str(config_path))
         bot.status_file = str(tmp_path / "status.json")
         return bot
