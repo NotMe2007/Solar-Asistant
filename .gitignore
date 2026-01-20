@@ -9,6 +9,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.pytest_cache/
 
 # Configuration with sensitive data
 config.json

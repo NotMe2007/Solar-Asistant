@@ -1,6 +1,6 @@
-# Solar-Assistant Bot
+# Solar Assistant Bot
 
-An automated webhook system for https://solar-assistant.io/sites that captures dashboard screenshots and sends them via webhooks on a scheduled basis. This bot runs headlessly in the background without requiring the browser to be open on your PC.
+An automated webhook system for https://solar-assistant.io/ that captures dashboard screenshots and sends them via webhooks on a scheduled basis. This bot runs headlessly in the background without requiring the browser to be open on your PC.
 
 ## Features
 
@@ -11,6 +11,8 @@ An automated webhook system for https://solar-assistant.io/sites that captures d
 - 🚀 **Headless Operation**: Runs in the background without opening browser windows
 - 📝 **Comprehensive Logging**: Detailed logs for monitoring and troubleshooting
 - 🖼️ **Local Backup**: Saves screenshots locally with timestamps
+- ⚡ **Grid Status Monitoring**: Detects grid online/offline status and sends alerts
+- 🔔 **Discord Integration**: Native support for Discord webhook notifications
 
 ## Quick Start
 
@@ -22,9 +24,9 @@ An automated webhook system for https://solar-assistant.io/sites that captures d
 ### Manual Setup
 
 #### Prerequisites
-- Python 3.7+
+- Python 3.9+
 - Google Chrome browser
-- ChromeDriver (automatically detected or install separately)
+- ChromeDriver (automatically managed)
 
 #### Installation
 
@@ -177,14 +179,32 @@ screenshots/
 
 ## Requirements
 
-- Python 3.7+
-- selenium==4.21.0
-- requests==2.31.0
-- Pillow==10.3.0
-- schedule==1.2.0
-- python-dotenv==1.0.1
+- Python 3.9+
+- selenium>=4.21.0
+- requests>=2.31.0
+- Pillow>=10.3.0
+- schedule>=1.2.0
+- python-dotenv>=1.0.1
+- pytesseract>=0.3.10 (optional, for enhanced OCR)
+- opencv-python>=4.9.0.80 (optional, for enhanced image analysis)
 - Google Chrome browser
 - ChromeDriver
+
+## Development
+
+### Running Tests
+
+```bash
+# Install test dependencies
+pip install pytest
+
+# Run tests
+python -m pytest tests/ -v
+```
+
+### Continuous Integration
+
+This project uses GitHub Actions for CI. The workflow runs on Python 3.9, 3.10, and 3.11.
 
 ## License
 
